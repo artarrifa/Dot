@@ -5,6 +5,7 @@ import { api, blobUrl } from "./api.js";
 import { clip, el, requestFile } from "./dom.js";
 import { icon } from "./icons.js";
 import { readsAsMarkdown } from "./markdown.js";
+import { smallerPicture } from "./shrink.js";
 import { toast } from "./ui.js";
 
 // The flight of a picture Snapshots brought into its chip (item 414): as wide as this share of the page, at most this
@@ -248,11 +249,13 @@ export function createAttachments({ dropTarget, input, onChange }) {
 
   async function upload(entry) {
     try {
-      if (entry.file.size > MAX_BYTES) {
+      // A large picture goes smaller (item 990): it is what made a phone's message wait.
+      const sent = await smallerPicture(entry.file);
+      if (sent.size > MAX_BYTES) {
         throw new Error(`larger than ${sizeLabel(MAX_BYTES)}`);
       }
-      const data = await readBase64(entry.file);
-      const stored = await api.post("/attachments", { name: entry.file.name, media_type: entry.file.type, data_b64: data });
+      const data = await readBase64(sent);
+      const stored = await api.post("/attachments", { name: sent.name, media_type: sent.type, data_b64: data });
       entry.id = stored.id;
       opens(entry);
       setState(entry, "ready", sizeLabel(stored.size));
