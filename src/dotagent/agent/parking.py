@@ -85,7 +85,8 @@ def parking_for(
 
 def kept_digest(info: ActionInfo) -> str | None:
     """The fingerprint of an action, which keeps the same step once in a chat: its tool, kind, summary, target, amount
-    and flags, exactly as its card showed them, with the files it changes and the application it opens; None for a step
+    and flags, exactly as its card showed them, with the files it changes, the application it opens and what it runs
+    whole (a page's script, item 985); None for a step
     whose card shows less than all of it (:func:`dotagent.agent.declined.declined_key`), which is kept anew each time,
     since two such steps may not be one."""
     if declined_key(info) is None:
@@ -101,6 +102,8 @@ def kept_digest(info: ActionInfo) -> str | None:
             ",".join(sorted(info.flags)),
             ",".join(info.changes),
             info.bundle or "",
+            # What the step runs, whole, as the card shows it (a page's script, item 985).
+            *((info.body,) if info.body else ()),
         )
     )
     return hashlib.blake2b(parts.encode(), digest_size=16).hexdigest()

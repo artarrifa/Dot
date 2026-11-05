@@ -384,7 +384,10 @@ trading off.
    hand-off goes in the hand-off's own expression (a lookahead such as `(?!.*--dry-run)` works). Once a rule fits, only
    the rules after it that hand off are read. The expression is searched, case-insensitive, in the action's one-line
    summary (a shell command's starts with `Run: ` and names the folder it runs in when the call names one, item 483,
-   so an expression can fit that folder too), a line break and its target (the command, the path, the address);
+   so an expression can fit that folder too), a line break and its target (the command, the path, the address), and
+   for a page's script (`browser_eval`), whose summary shows its start and whose target is the page, a line break and
+   the whole script, which the review model of `auto` reads whole too, or hands to you past 12,000 characters, the
+   card of the approval showing it whole under Script (item 985);
    one that takes longer than 0.25 s to match is stopped and the action refused, as for a rule that cannot be read, so
    that a pattern that backtracks for long cannot hold the daemon (item 387). A rule
    reads as a sentence in Settings › Rules, "When Dot wants to run a command that mentions “git push”, it asks you
@@ -418,7 +421,9 @@ trading off.
    rules (`GET /api/rules/usage`, item 473): how many steps it fits, how many it decides (as the first rule to fit, or
    as a hand-off wherever it stands), how many of those ran in yolo runs or were settled before any rule, and which
    rules decide the others. Before a rule is added it is tried on the steps of past runs (`POST /api/rules/preview`,
-   item 469), as the policy matches rules, and nothing is written: a line says how many of the things Dot did in the
+   item 469), as the policy matches rules, but on the step's summary and target alone (a past page script's record
+   keeps its start, not the whole script the policy reads, item 985), and nothing is written: a line says how many of
+   the things Dot did in the
    last 30 days it fits, and under the draft's Details **Test on the last 30 days** gives the whole of it, again once a
    part is changed: how many steps it fits and which earlier rules
    decide some of them first. Of the rest, it counts apart the steps of yolo runs, which ask nothing whatever the rules

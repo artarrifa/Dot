@@ -38,13 +38,16 @@ _PARTIAL: re.Pattern[str] = re.compile(r"…|\[\d+ chars omitted\]|\[\d+ more ch
 
 
 def declined_key(info: ActionInfo) -> str | None:
-    """The action as its card showed it, exactly (a browser element keeps its ref while its role and name stay the
-    same, so another Reply button is another action); None for a kind that says not what it writes, and for a card that
-    shows less than the whole action (:data:`_PARTIAL`), in its summary or its target."""
+    """The action as its card showed it, exactly, with what it runs whole (a page's script, item 985; a browser
+    element keeps its ref while its role and name stay the same, so another Reply button is another action); None for
+    a kind that says not what it writes, and for a card that shows less than the whole action (:data:`_PARTIAL`), in its
+    summary or its target."""
     if info.kind in _UNBOUND_KINDS or _PARTIAL.search(info.summary) or _PARTIAL.search(info.target):
         return None
     amount: str = "" if info.amount is None else render_amount(info.amount)
-    return "\n".join((info.tool, info.summary, info.target, amount))
+    # What the step runs, whole, which the card shows too (a page's script, item 985): the summary shows its start with
+    # its whitespace folded, which two different scripts may share.
+    return "\n".join((info.tool, info.summary, info.target, amount, *((info.body,) if info.body else ())))
 
 
 def still_declined(declined: Mapping[str, Declined], key: str | None, spoken: int) -> Declined | None:
