@@ -316,14 +316,14 @@ in has nothing to write down, and drops it. A pause of fifteen seconds after a s
 too; six seconds with no sound at all end it by themselves, saying nothing was heard, and drop it. The Mac wrote down
 what was said while it was said, so its words come a moment after the tick (0.04 s to 0.11 s measured on this Mac after
 a sentence of Turkish or English); the recorder says **Writing down what you said…** in the wave's place, quietly, until
-they come, with the cross to give up waiting, and the words go into the box after what it held. Every end (the tick, the
-cross, typing, a message sent, the page out of sight, an error) lets the microphone go at once: its tracks end, which
-puts an iPhone's microphone light out, the audio context closes and what waited to be sent is dropped; every end but the
-tick drops the stream at the Mac too (`DELETE /api/voice/streams/<id>`), and a press while the browser still asks drops
-it. A piece that could not be sent loses the recording (the Mac would write down one with a hole in it): the recording
-ends at once and says why, not at the tick. A failure says what to do in plain words, and the box keeps its words: the
-Mac could not be reached, it cannot write down this language (choose another in Settings › General › Voice), it is
-writing down two other recordings, nothing was heard.
+they come, with the cross to give up waiting, and the words go into the box after what it holds then (item 976). Every
+end (the tick, the cross, typing, a message sent, the page out of sight, an error) lets the microphone go at once: its
+tracks end, which puts an iPhone's microphone light out, the audio context closes and what waited to be sent is dropped;
+every end but the tick drops the stream at the Mac too (`DELETE /api/voice/streams/<id>`), and a press while the browser
+still asks drops it. A piece that could not be sent loses the recording (the Mac would write down one with a hole in
+it): the recording ends at once and says why, not at the tick. A failure says what to do in plain words, and the box
+keeps its words: the Mac could not be reached, it cannot write down this language (choose another in Settings › General
+› Voice), it is writing down two other recordings, nothing was heard.
 
 The Mac writes it down with macOS 26's own dictation, on the device, through a small program the daemon builds with the
 Swift compiler of Apple's developer tools the first time it is needed (`src/dotagent/voice`). `GET /api/voice` says
@@ -392,10 +392,14 @@ Customize tile and its chip too); and a skill wears the puzzle piece, here and a
 of an imported skill, the brain of a learned one; the daemon's palette says which server is of which service). An `@`
 inside a word, as in an address, opens nothing. On a phone either menu takes the room the keyboard leaves above the
 composer and scrolls inside it. A run that waits for your approval is listed under Waits for you, below the composer,
-and leads to its chat: the card stands there alone (item 434), with no line above it that says the same (item 871),
-wherever that line stood, a step's row between them too (item 891); a refusal, which comes with no card, keeps its
-line. Once you allow it, the card leaves the chat, as the
-page opens again too; refused, it stays and says so, and a question keeps its answer. A step settled (refused, or not
+and leads to its chat. While it waits the card stands at the composer's place, in one panel headed "Your answer is
+needed" (item 973, after another agent app's), on a phone and a computer alike: the panel takes the composer's place while it is
+open (but for a run at work, whose composer holds its Stop and stays under it), counts its cards when there are several and scrolls inside itself, never taller than half the window, and its
+chevron folds it to its head, which gives the composer back; a question the run left waits there too. In the chat the
+card keeps its place (item 434), with no line above it that says the same (item 871), wherever that line stood, a
+step's row between them too (item 891); a refusal, which comes with no card, keeps its line. Once you allow it, the
+card leaves the chat, as the page opens again too; refused, it goes back to its place in the chat and says so, and a
+question keeps its answer there. A step settled (refused, or not
 answered in time; a question with its answer) is one quiet line, not a card (item 891, the owner's word on an expired card:
 "this looks very ugly"): what it was ("Run"), its command on one line, cut at the width, and how it ended ("Expired",
 "Denied"); its note under it; under **Details** the whole command, what the step does and a reason of its own,

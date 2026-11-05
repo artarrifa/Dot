@@ -1601,7 +1601,6 @@ class RunManager:
         reaction: ReactionAct | None,
         owner_text: str = "",
         files: tuple[StoredAttachment, ...] = (),
-        taints: bool = False,
     ) -> None:
         """Hand the running agent a note about a reaction of the owner (item 586), which it reads before its next
         step as it reads a steer; the note says what the owner did and what that asks. It is Dot's words, not the
@@ -1622,7 +1621,29 @@ class RunManager:
                     said="",
                     reaction=reaction,
                     owner_text=owner_text,
+                )
+            )
+        except asyncio.QueueShutDown as exc:
+            raise RunConflict("the run is not active", {"run_id": run_id}) from exc
+
+    def note(self, run_id: str, text: str, taints: bool) -> None:
+        """Hand the running agent a note of Dot's from another run (a chat's note, a work order, a helper's answer),
+        which it reads before its next step as it reads a steer: Dot's words, which clear no mark and say nothing to
+        the reviewer, as :meth:`tell`'s do, and which are no sign that the owner is there (item 974). ``taints`` marks
+        the reading run when the note carries words of content third parties can author. Refused like a steer to a run
+        that has ended."""
+        handle: RunHandle = self._handle(run_id)
+        try:
+            handle.inbox.put_nowait(
+                UserInput(
+                    text=text,
+                    files=(),
+                    question_id=None,
+                    vouches=False,
+                    said="",
+                    reaction="note",
                     taints=taints,
+                    of_dot=True,
                 )
             )
         except asyncio.QueueShutDown as exc:
@@ -1683,7 +1704,7 @@ class RunManager:
             )
         tainted: bool = True
         try:
-            self.tell(target.run_id, note.text, "note", taints=tainted)
+            self.note(target.run_id, note.text, tainted)
         except RunConflict:
             return None
         await self._runtime.bus.emit(

@@ -1532,7 +1532,7 @@ a.pill:hover {
   position: absolute;
   width: 1px;
   height: 1px;
-  margin: -var(--space-half);
+  margin: calc(-1 * var(--space-half));
   padding: 0;
   overflow: hidden;
   clip-path: inset(50%);
@@ -7302,6 +7302,106 @@ summary:has(> .chev)::-webkit-details-marker {
   margin-top: 24px;
   padding: 16px 0 calc(16px + var(--safe-bottom));
   background: linear-gradient(to top, var(--bg) 72%, transparent);
+}
+
+/* What Dot asks of the owner (item 973, after another agent app's "User input needed"): one panel at the composer's place, its
+   cards scrolling inside it, never taller than half the window. Unfolded with a card in it, it takes the composer's
+   place, as the cards are where the answer is given, but for a run at work, whose composer holds its Stop and stays
+   under it: a run is stopped at once, whatever it asks (the pre-push review of item 973). Folded to its head, the
+   composer is back under it. */
+.asks {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--space-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-composer);
+  overflow: hidden;
+  animation: asks-rise var(--motion-base) var(--ease);
+}
+
+.asks-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+}
+
+.asks-title {
+  color: var(--muted);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-label);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+
+.asks-count {
+  min-width: 20px;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--accent-weak);
+  color: var(--text);
+  font-size: var(--text-xs);
+  text-align: center;
+}
+
+.asks-count:empty {
+  display: none;
+}
+
+.asks-fold {
+  margin-left: auto;
+  border-radius: var(--radius-pill);
+}
+
+/* The chevron turns in a frame of its own: the icon's own transform keeps its size (icons.js `--icon-scale`). */
+.asks-chev {
+  display: inline-flex;
+  transform: rotate(90deg);
+  transition: transform var(--motion-quick) var(--ease);
+}
+
+.asks[data-folded] .asks-chev {
+  transform: rotate(-90deg);
+}
+
+.asks-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-height: 50dvh;
+  padding: 0 var(--space-3) var(--space-3);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* A card in the panel is the panel's: no frame of its own around it. */
+.asks-list > .approval {
+  border-color: transparent;
+  background: var(--bg);
+}
+
+.dock:not(.at-work):has(> .asks:not([hidden], [data-folded])) > .composer {
+  display: none;
+}
+
+@keyframes asks-rise {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .asks {
+    animation: none;
+  }
 }
 
 /* A dock with nothing to type in (a delegated run's, item 244) holds the run's pill; the commands at work in its chat

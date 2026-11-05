@@ -276,7 +276,7 @@ export function allowToast(answer, pane) {
 }
 
 // The `context.code` of the failures the Mac says itself, with words written for the owner (`VoiceError`).
-const MAC_SAYS = new Set(["unavailable", "unsupported-language", "busy", "too-long", "timeout", "failed"]);
+const MAC_SAYS = new Set(["unavailable", "unsupported-language", "busy", "too-long", "timeout", "failed", "gone"]);
 
 /**
  * What to tell the owner of the error a recording met on its way to the Mac and back, in plain words (item 626): a Mac

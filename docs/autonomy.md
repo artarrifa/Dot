@@ -176,8 +176,8 @@ there the same way.
 **Questions nobody answers during the run.** In a `yolo`, scheduled or eval run nobody answers the agent's own questions
 (`ask_user`) while it works, and `[agent] questions` decides what they do. With `leave` (the default) the question is
 stored as `left`, the timeline shows it where it was asked, and the run goes on with what does not depend on the answer,
-or ends and says what it needs; its status never turns `blocked`. The run's page lists its open questions under "Dot
-asked you", during the run and after it, and `dotx run` prints each one when it is left and lists the open ones after
+or ends and says what it needs; its status never turns `blocked`. The run's page shows its open questions in the panel at the
+composer's place ([The daemon](daemon.md), item 973), during the run and after it, and `dotx run` prints each one when it is left and lists the open ones after
 the answer. Your answer (`POST /api/approvals/{id}/decision`) goes to the conversation as your message, "Answer to your
 question “…”: …": into the run working there, or else as a new run on it, whose goal is the goal of the run that asked
 with your answer under it (so its goal check and its title keep the task), with the mode, model, reasoning level,
@@ -191,7 +191,7 @@ left question never expires. With `wait` such a question waits as in a run you w
 or the menu bar), chooses for each question whether it waits for your answer (item 508). One asked with `wait`, which it
 uses only when nothing useful can be done until you answer, waits as before, for `approval_timeout_s` at most. Any other
 is left on the chat as above and the run goes on with what does not depend on the answer: its status stays `running`,
-the card waits under "Dot asked you", and your answer comes to the run as your instruction at once (a step whose model
+the card waits in the panel at the composer's place (item 973), and your answer comes to the run as your instruction at once (a step whose model
 is still answering is cut short and asked again with it, item 509), clearing no mark of untrusted content, as a waited
 answer does not ([Safety](safety.md#safety)), or, once it has ended, carries the work on as above, in a run that starts
 as untrusted as the run that asked ended. A run of a message sent with Plan first, and a run of a `dotx` command, which
